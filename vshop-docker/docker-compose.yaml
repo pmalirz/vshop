@@ -1,3 +1,6 @@
+# Uwaga! Pozor! Achtung!
+# Remember to run `gradlew dockerInit` before starting the docker-compose
+
 version: '3'
 
 services:
