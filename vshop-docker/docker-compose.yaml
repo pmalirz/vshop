@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  oracle21c:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    environment:
+      - ORACLE_PWD=sys
+    ports:
+      - "1521:1521"
+      - "5500:5500"  
+      - "2484:2484"
+    volumes:
+      # Oracle's storage folder - the database will survive the restarts
+      - ./oracle/storage:/opt/oracle/oradata
+      # Oracle's startup and setup scripts folder - https://github.com/oracle/docker-images/tree/main/OracleDatabase/SingleInstance#running-scripts-after-setup-and-on-startup
+      - ./oracle/scripts:/opt/oracle/scripts
+  infinispan:
+    image: infinispan/server:latest
+    ports:
+      - "11222:11222"
+    environment:
+      - IDENTITIES_BATCH=/opt/infinispan/server/conf/identities.batch
+    volumes:
+      # Infinispan /server folder https://infinispan.org/docs/stable/titles/server/server.html#server_root_directory
+      - ./infinispan/server:/opt/infinispan/server
+    command: -c /opt/infinispan/server/conf/datasource.xml -c /opt/infinispan/server/conf/infinispan.xml
+    depends_on:
+      - oracle21c
