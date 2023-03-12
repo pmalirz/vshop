@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/xepdb1
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: oracle.ucp.jdbc.PoolDataSource # oracle.ucp.jdbc.UCPDataSource
+    username: vshop
+    password: vshop
+#    oracleucp:
+#      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+#      s-q-l-for-validate-connection: select * from dual
+#      connection-pool-name: oracle-connection-pool
+#      initial-pool-size: 5
+#      min-pool-size: 1
+#      max-pool-size: 30
+#      abandoned-connection-timeout: 5
+    ucp:
+      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+      s-q-l-for-validate-connection: select * from dual
+      connection-pool-name: oracle-connection-pool
+      initial-pool-size: 5
+      min-pool-size: 1
+      max-pool-size: 30
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /openapi
