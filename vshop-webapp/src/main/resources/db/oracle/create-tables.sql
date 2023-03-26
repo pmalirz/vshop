@@ -1,12 +1,14 @@
 -- The script meant to be run bt the VSHOP schema owner
--- Oracle JPA
+
+-- JPA
 CREATE TABLE PRODUCT_JPA (
     id          VARCHAR2(255),
     code        VARCHAR2(100),
     name        VARCHAR2(255),
     description VARCHAR2(1000),
-    price       NUMBER(10,2),
-    quantity       NUMBER(10,0),
+    price       NUMBER(10,4),
+    quantity    NUMBER(10,0),
+    revision    NUMBER(10,0),
     PRIMARY KEY (id)
 )
 /

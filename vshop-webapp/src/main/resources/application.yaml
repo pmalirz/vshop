@@ -45,4 +45,4 @@ vshop:
   products:
     generate:
       initial:
-        size: 1000000
+        size: 10

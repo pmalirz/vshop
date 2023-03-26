@@ -39,7 +39,7 @@ private class AddProductJpaRepository(
             description = this.description,
             price = this.price,
             quantity = this.quantity,
-            version = this.version
+            revision = this.revision
         )
     }
 
@@ -64,5 +64,5 @@ internal class ProductJpa(
     val price: BigDecimal?,
     val quantity: Int?,
     @Version
-    val version: Long? = 1L
+    val revision: Long? = 1L
 )

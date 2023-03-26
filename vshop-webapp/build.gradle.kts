@@ -70,25 +70,39 @@ tasks.withType<Test> {
 
 tasks.register("initDB") {
     group = "init"
-    description = "Initialize Oracle Database"
+    description = "Initialize database structures"
 
     doLast {
-        val sqlExec = SQLExec()
-        sqlExec.project = Project()
-        sqlExec.project.init()
-
-        val delimiterType = SQLExec.DelimiterType()
-        delimiterType.value = SQLExec.DelimiterType.ROW
-        sqlExec.setDelimiterType(delimiterType)
-        sqlExec.setDelimiter("/") // This is required as the script contains pl/sql blocks
-
-        sqlExec.setDriver("oracle.jdbc.OracleDriver")
-        sqlExec.createClasspath().setPath(project.sourceSets["main"].runtimeClasspath.asPath)
-        sqlExec.setUrl("jdbc:oracle:thin:@//localhost:1521/xepdb1")
-        sqlExec.setUserid("vshop")
-        sqlExec.setPassword("vshop")
-        sqlExec.setSrc(File("${project.projectDir}/src/main/resources/db/oracle/01-create-tables.sql"))
-        sqlExec.setPrint(true)
-        sqlExec.execute()
+        runScript("${project.projectDir}/src/main/resources/db/oracle/create-tables.sql")
     }
 }
+
+tasks.register("dropDB") {
+    group = "init"
+    description = "Drop all database structures"
+
+    doLast {
+        runScript("${project.projectDir}/src/main/resources/db/oracle/drop-tables.sql")
+    }
+}
+
+fun runScript(scriptPath: String) {
+    val sqlExec = SQLExec()
+    sqlExec.project = Project()
+    sqlExec.project.init()
+
+    val delimiterType = SQLExec.DelimiterType()
+    delimiterType.value = SQLExec.DelimiterType.ROW
+    sqlExec.setDelimiterType(delimiterType)
+    sqlExec.setDelimiter("/") // This is required as the script contains pl/sql blocks
+
+    sqlExec.setDriver("oracle.jdbc.OracleDriver")
+    sqlExec.createClasspath().setPath(project.sourceSets["main"].runtimeClasspath.asPath)
+    sqlExec.setUrl("jdbc:oracle:thin:@//localhost:1521/xepdb1")
+    sqlExec.setUserid("vshop")
+    sqlExec.setPassword("vshop")
+    sqlExec.setSrc(File(scriptPath))
+    sqlExec.setPrint(true)
+    sqlExec.execute()
+}
+

@@ -7,7 +7,7 @@ import java.util.*
 import java.util.function.Consumer
 
 @Service
-internal class AddProductCommandHandler(var repository: AddProductRepository) :
+internal class AddProductCommandHandler(private val repository: AddProductRepository) :
     Consumer<AddProductCommand> {
 
     @Transactional
@@ -18,7 +18,8 @@ internal class AddProductCommandHandler(var repository: AddProductRepository) :
             name = command.name,
             description = command.description,
             price = command.price,
-            quantity = command.quantity
+            quantity = command.quantity,
+            revision = command.revision
         )
 
         repository.add(product)
@@ -31,4 +32,5 @@ data class AddProductCommand(
     val description: String?,
     val price: BigDecimal?,
     val quantity: Int?,
+    val revision: Long?
 )
