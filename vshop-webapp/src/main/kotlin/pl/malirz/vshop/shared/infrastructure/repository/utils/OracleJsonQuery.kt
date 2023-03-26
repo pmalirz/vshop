@@ -1,4 +1,4 @@
-package pl.malirz.vshop.shared.utils
+package pl.malirz.vshop.shared.infrastructure.repository.utils
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import oracle.jdbc.OracleType

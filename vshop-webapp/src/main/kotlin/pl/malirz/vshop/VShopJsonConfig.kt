@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.jdbc.core.JdbcTemplate
-import pl.malirz.vshop.shared.utils.OracleJsonQuery
+import pl.malirz.vshop.shared.infrastructure.repository.utils.OracleJsonQuery
 import javax.sql.DataSource
 
 @Configuration

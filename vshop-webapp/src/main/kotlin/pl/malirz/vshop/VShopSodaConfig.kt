@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile
 import org.springframework.jdbc.core.ConnectionCallback
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
-import pl.malirz.vshop.shared.utils.OracleSodaQuery
+import pl.malirz.vshop.shared.infrastructure.repository.utils.OracleSodaQuery
 import javax.sql.DataSource
 
 

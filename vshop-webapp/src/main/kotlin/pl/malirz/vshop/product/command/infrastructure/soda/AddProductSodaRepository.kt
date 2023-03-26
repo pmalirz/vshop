@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
 import pl.malirz.vshop.product.command.AddProductRepository
 import pl.malirz.vshop.product.command.Product
-import pl.malirz.vshop.shared.utils.OracleSodaQuery
+import pl.malirz.vshop.shared.infrastructure.repository.utils.OracleSodaQuery
 
 private const val TABLE = "PRODUCT_SODA"
 
