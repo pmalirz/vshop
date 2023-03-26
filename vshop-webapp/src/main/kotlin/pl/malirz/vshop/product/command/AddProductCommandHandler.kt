@@ -7,11 +7,11 @@ import java.util.*
 import java.util.function.Consumer
 
 @Service
-internal class AddProductToCatalogueCommandHandler(var repository: AddProductRepository) :
-    Consumer<AddProductToCatalogueCommand> {
+internal class AddProductCommandHandler(var repository: AddProductRepository) :
+    Consumer<AddProductCommand> {
 
     @Transactional
-    override fun accept(command: AddProductToCatalogueCommand) {
+    override fun accept(command: AddProductCommand) {
         val product = Product(
             id = UUID.randomUUID().toString(),
             code = command.code,
@@ -25,7 +25,7 @@ internal class AddProductToCatalogueCommandHandler(var repository: AddProductRep
     }
 }
 
-data class AddProductToCatalogueCommand(
+data class AddProductCommand(
     val code: String,
     val name: String,
     val description: String?,

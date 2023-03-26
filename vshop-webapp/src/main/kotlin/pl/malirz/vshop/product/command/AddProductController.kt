@@ -8,22 +8,22 @@ import java.math.BigDecimal
 
 @RestController
 @RequestMapping("/catalogue/products")
-internal class AddProductToCatalogueController(private val  handler: AddProductToCatalogueCommandHandler) {
+internal class AddProductController(private val  handler: AddProductCommandHandler) {
 
     @PostMapping
-    fun accept(@RequestBody request: AddProductToCatalogueRequest) {
+    fun accept(@RequestBody request: AddProductRequest) {
         handler.accept(request.toCommand())
     }
 }
 
-internal data class AddProductToCatalogueRequest(
+internal data class AddProductRequest(
     val code: String,
     val name: String,
     val description: String?,
     val quantity: Int?,
     val price: BigDecimal?
 ) {
-    fun toCommand(): AddProductToCatalogueCommand =
-        AddProductToCatalogueCommand(code, name, description, price, quantity)
+    fun toCommand(): AddProductCommand =
+        AddProductCommand(code, name, description, price, quantity)
 }
 
