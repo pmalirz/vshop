@@ -12,23 +12,30 @@ import kotlin.concurrent.getOrSet
 /**
  * Utility class making work with SODA collection more convenient and performant.
  */
-class OracleSODACollection(
+class OracleSodaQuery(
     private val jdbcTemplate: JdbcTemplate,
     private val oracleRDBMSClient: OracleRDBMSClient,
     private val objectMapper: ObjectMapper
 ) {
 
+    /**
+     *  OracleCollection and OracleDatabase instances are cached per thread.
+     *  This is done to avoid opening the collection and creating the OracleDatabase instance for each query.
+     */
     private val oracleInThread = ThreadLocal<MutableMap<String, Pair<OracleCollection, OracleDatabase>>>()
 
-    fun storeObject(collectionName: String, storedObject: Any) {
-        val (oracleCollection, oracleDatabase) = openCollection(collectionName)
+    fun insert(tableName: String, storedObject: Any) {
+        val (oracleCollection, oracleDatabase) = openCollection(tableName)
         val serializedDocument = objectMapper.writer().writeValueAsBytes(storedObject)
         val document = oracleDatabase.createDocumentFromByteArray(serializedDocument)
         oracleCollection.insert(document)
     }
 
-    fun <T : Any> storeObjects(collectionName: String, storedObjects: Collection<T>) {
-        val (oracleCollection, oracleDatabase) = openCollection(collectionName)
+    /**
+     * Note! In fact SODA does not utilize batch but inserts the documents one by one to the table.
+     */
+    fun <T : Any> insertBatch(tableName: String, storedObjects: Collection<T>) {
+        val (oracleCollection, oracleDatabase) = openCollection(tableName)
         val documents = mutableListOf<OracleDocument>()
         storedObjects.forEach {
             val serializedDocument = objectMapper.writer().writeValueAsBytes(it)
@@ -47,13 +54,13 @@ class OracleSODACollection(
         oracleInThread.getOrSet { mutableMapOf() }.computeIfAbsent(collectionName) {
             var oracleDatabase: OracleDatabase? = null
 
+            // Create OracleDatabase instance using pooled connection
             jdbcTemplate.execute(ConnectionCallback { connection ->
-                oracleDatabase = oracleRDBMSClient.getDatabase(connection, true)
+                oracleDatabase = oracleRDBMSClient.getDatabase(connection)
             })
-
             val oracleCollection = oracleDatabase?.openCollection(collectionName)
 
-            return@computeIfAbsent Pair(oracleCollection!!, oracleDatabase!!)
+            Pair(oracleCollection!!, oracleDatabase!!)
         }
 
 }

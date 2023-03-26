@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
+    kotlin("plugin.noarg")
+    kotlin("plugin.jpa")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
 }
@@ -11,6 +13,8 @@ group = "pl.malirz.vshop"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
+ext["tomcat.version"] = "10.1.7"
+
 repositories {
     mavenCentral()
 }
@@ -18,15 +22,19 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation("org.springframework:spring-tx:6.0.6")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+    implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
 
     implementation("com.oracle.database.soda:orajsoda:1.1.7.1")
     implementation("com.oracle.database.jdbc:ojdbc11:21.9.0.0")
@@ -35,8 +43,12 @@ dependencies {
     runtimeOnly("com.oracle.database.security:oraclepki:21.9.0.0")
     runtimeOnly("com.oracle.database.security:osdt_cert:21.9.0.0")
 
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.3")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.3")
+    implementation("org.hibernate:hibernate-core:6.1.7.Final")
+
+    implementation("org.apache.tomcat:tomcat-jdbc:${project.ext["tomcat.version"]}")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.4")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
