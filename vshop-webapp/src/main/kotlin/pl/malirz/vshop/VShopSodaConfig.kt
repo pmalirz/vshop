@@ -4,16 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jsonMapper
-import jakarta.annotation.PostConstruct
-import oracle.soda.OracleDatabase
 import oracle.soda.rdbms.OracleRDBMSClient
-import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.jdbc.core.ConnectionCallback
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.stereotype.Component
 import pl.malirz.vshop.shared.infrastructure.repository.utils.OracleSodaQuery
 import javax.sql.DataSource
 
@@ -44,22 +39,5 @@ class VShopSodaConfig {
                     .build()
             )
         }
-
-}
-
-@Component
-@Profile("SODA")
-private class SodaInitDB(
-    var oracleRDBMSClient: OracleRDBMSClient,
-    var jdbcTemplate: JdbcTemplate
-) {
-    @PostConstruct
-    @DependsOnDatabaseInitialization
-    fun initializeDatabase() {
-        jdbcTemplate.execute(ConnectionCallback {
-            val db: OracleDatabase = oracleRDBMSClient.getDatabase(it)
-            db.admin().createCollection("ProductSoda")
-        })
-    }
 
 }
