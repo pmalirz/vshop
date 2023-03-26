@@ -2,15 +2,15 @@ spring:
   datasource:
     url: jdbc:oracle:thin:@//localhost:1521/xepdb1
     driver-class-name: oracle.jdbc.OracleDriver
-#    type: oracle.ucp.jdbc.PoolDataSource
-    type: org.apache.tomcat.jdbc.pool.DataSource
     username: vshop
     password: vshop
+    type: org.apache.tomcat.jdbc.pool.DataSource
     tomcat:
       validation-query: select * from dual
       default-auto-commit: false
-
-  #    ucp:
+# If you prefer UCP
+#    type: oracle.ucp.jdbc.PoolDataSource
+#    ucp:
 #      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
 #      s-q-l-for-validate-connection: select * from dual
 #      connection-pool-name: oracle-connection-pool
@@ -26,8 +26,6 @@ spring:
       hibernate:
         jdbc.batch_size: 1000
         order_inserts: true
-        globally_quoted_identifiers: true
-        globally_quoted_identifiers_skip_column_definitions: true
         dialect: org.hibernate.dialect.Oracle12cDialect
         show_sql: false
         cache:

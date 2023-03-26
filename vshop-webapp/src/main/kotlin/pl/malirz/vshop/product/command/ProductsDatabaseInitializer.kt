@@ -17,7 +17,7 @@ import kotlin.system.measureTimeMillis
  */
 @Service
 @Profile("INIT")
-internal class CatalogueDataInitializer(
+internal class ProductsDatabaseInitializer(
     private val repository: AddProductRepository,
     @Value("\${vshop.products.generate.initial.size:0}")
     private val numberOfItemsToGenerate: Int

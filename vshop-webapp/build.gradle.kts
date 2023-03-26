@@ -1,3 +1,5 @@
+import org.apache.tools.ant.Project
+import org.apache.tools.ant.taskdefs.SQLExec
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -64,4 +66,29 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.register("initDB") {
+    group = "init"
+    description = "Initialize Oracle Database"
+
+    doLast {
+        val sqlExec = SQLExec()
+        sqlExec.project = Project()
+        sqlExec.project.init()
+
+        val delimiterType = SQLExec.DelimiterType()
+        delimiterType.value = SQLExec.DelimiterType.ROW
+        sqlExec.setDelimiterType(delimiterType)
+        sqlExec.setDelimiter("/") // This is required as the script contains pl/sql blocks
+
+        sqlExec.setDriver("oracle.jdbc.OracleDriver")
+        sqlExec.createClasspath().setPath(project.sourceSets["main"].runtimeClasspath.asPath)
+        sqlExec.setUrl("jdbc:oracle:thin:@//localhost:1521/xepdb1")
+        sqlExec.setUserid("vshop")
+        sqlExec.setPassword("vshop")
+        sqlExec.setSrc(File("${project.projectDir}/src/main/resources/db/oracle/01-create-tables.sql"))
+        sqlExec.setPrint(true)
+        sqlExec.execute()
+    }
 }

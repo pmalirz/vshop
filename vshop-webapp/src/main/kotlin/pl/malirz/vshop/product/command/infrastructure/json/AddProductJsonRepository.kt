@@ -6,7 +6,7 @@ import pl.malirz.vshop.product.command.AddProductRepository
 import pl.malirz.vshop.product.command.Product
 import pl.malirz.vshop.shared.utils.OracleJsonQuery
 
-private const val TABLE = "ProductJson"
+private const val TABLE = "PRODUCT_JSON"
 
 @Repository
 @Profile("JSON")

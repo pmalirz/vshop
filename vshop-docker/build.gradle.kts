@@ -11,8 +11,11 @@ dependencies {
 }
 
 // This task downloads Oracle JDBC and places it in the Infinispan's /server/lib folder
-tasks.register<Copy>("dockerInit") {
+tasks.register<Copy>("initDocker") {
     println("Copying Oracle JDBC to ${project.projectDir}/infinispan/server/lib")
     into("${project.projectDir}/infinispan/server/lib")
     from(configurations.runtimeClasspath)
+
+    group = "init"
+    description = "Copy Oracle JDBC to Infinispan's /server/lib folder"
 }

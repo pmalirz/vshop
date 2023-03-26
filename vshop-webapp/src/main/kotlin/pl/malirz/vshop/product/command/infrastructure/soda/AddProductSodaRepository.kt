@@ -6,7 +6,7 @@ import pl.malirz.vshop.product.command.AddProductRepository
 import pl.malirz.vshop.product.command.Product
 import pl.malirz.vshop.shared.utils.OracleSodaQuery
 
-private const val TABLE = "ProductSoda"
+private const val TABLE = "PRODUCT_SODA"
 
 @Repository
 @Profile("SODA")
