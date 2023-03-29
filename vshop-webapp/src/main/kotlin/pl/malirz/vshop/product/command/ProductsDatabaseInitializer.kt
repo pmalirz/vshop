@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 import java.util.*
 import java.util.stream.IntStream
@@ -27,6 +28,7 @@ internal class ProductsDatabaseInitializer(
     private val logger = KotlinLogging.logger {}
 
 
+    @Transactional
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         val products = mutableListOf<Product>()
 

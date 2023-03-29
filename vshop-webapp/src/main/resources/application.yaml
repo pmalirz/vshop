@@ -38,9 +38,11 @@ springdoc:
     path: /
 logging:
   level:
-    org.springframework.jdbc: INFO
-    org.springframework.orm.jpa: INFO
-    org.springframework.transaction: INFO
+    ROOT: INFO
+    org.springframework.jdbc: DEBUG
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
 vshop:
   products:
     generate:

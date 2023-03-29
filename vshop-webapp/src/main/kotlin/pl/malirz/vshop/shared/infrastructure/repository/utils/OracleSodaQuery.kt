@@ -38,7 +38,7 @@ class OracleSodaQuery(
         val (oracleCollection, oracleDatabase) = openCollection(tableName)
         val documents = mutableListOf<OracleDocument>()
         storedObjects.forEach {
-            val serializedDocument = objectMapper.writer().writeValueAsBytes(it)
+            val serializedDocument = objectMapper.writeValueAsBytes(it)
             val document = oracleDatabase.createDocumentFromByteArray(serializedDocument)
             documents.add(document)
         }
