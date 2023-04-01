@@ -29,3 +29,25 @@ services:
     command: -c /opt/infinispan/server/conf/datasource.xml -c /opt/infinispan/server/conf/infinispan.xml
     depends_on:
       - oracle21c
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: vshop
+    volumes:
+      # MongoDB data folder
+      - ./mongo/storage:/data/db
+      - ./mongo/scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u mongo -p mongo --quiet) -eq 1
+      interval: 10s
+    command: [ "--replSet", "rs0", "--bind_ip_all", "--keyFile", "/docker-entrypoint-initdb.d/keyfile.txt" ]
+
+networks:
+  mongo-network:
+    driver: bridge

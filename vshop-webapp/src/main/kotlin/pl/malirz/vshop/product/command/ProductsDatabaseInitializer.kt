@@ -32,7 +32,7 @@ internal class ProductsDatabaseInitializer(
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         val products = mutableListOf<Product>()
 
-        if(numberOfItemsToGenerate <= 0) {
+        if (numberOfItemsToGenerate <= 0) {
             logger.info { "No products to generate. Try to set vshop.products.generate.initial.size" }
             return
         }

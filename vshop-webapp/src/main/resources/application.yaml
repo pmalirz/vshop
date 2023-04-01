@@ -8,15 +8,15 @@ spring:
     tomcat:
       validation-query: select * from dual
       default-auto-commit: false
-# If you prefer UCP
-#    type: oracle.ucp.jdbc.PoolDataSource
-#    ucp:
-#      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-#      s-q-l-for-validate-connection: select * from dual
-#      connection-pool-name: oracle-connection-pool
-#      initial-pool-size: 5
-#      min-pool-size: 1
-#      max-pool-size: 30
+  # If you prefer UCP
+  #    type: oracle.ucp.jdbc.PoolDataSource
+  #    ucp:
+  #      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+  #      s-q-l-for-validate-connection: select * from dual
+  #      connection-pool-name: oracle-connection-pool
+  #      initial-pool-size: 5
+  #      min-pool-size: 1
+  #      max-pool-size: 30
   jpa:
     hibernate:
       naming:
@@ -32,6 +32,13 @@ spring:
           query_cache_factory: true
         connection:
           autocommit: false
+  data:
+    mongodb:
+      uri: mongodb://vshop:vshop@localhost:27017/vshop
+      replica-set-name: rs0
+#      username: vshop
+#      password: vshop
+#      authentication-database: admin
 springdoc:
   show-actuator: true
   swagger-ui:
@@ -42,6 +49,7 @@ logging:
     org.springframework.jdbc: DEBUG
     org.springframework.orm.jpa: DEBUG
     org.springframework.transaction: DEBUG
+    org.springframework.data.mongodb: DEBUG
     org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
 vshop:
   products:
