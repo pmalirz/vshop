@@ -10,7 +10,7 @@ services:
       - ORACLE_PWD=sys
     ports:
       - "1521:1521"
-      - "5500:5500"  
+      - "5500:5500"
       - "2484:2484"
     volumes:
       # Oracle's storage folder - the database will survive the restarts
@@ -33,8 +33,6 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    networks:
-      - mongo-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
@@ -43,11 +41,3 @@ services:
       # MongoDB data folder
       - ./mongo/storage:/data/db
       - ./mongo/scripts:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u mongo -p mongo --quiet) -eq 1
-      interval: 10s
-    command: [ "--replSet", "rs0", "--bind_ip_all", "--keyFile", "/docker-entrypoint-initdb.d/keyfile.txt" ]
-
-networks:
-  mongo-network:
-    driver: bridge

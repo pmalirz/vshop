@@ -13,9 +13,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Profile("MONGO")
 class VShopMongoConfig {
 
-    @Bean
+/*    @Bean
     fun transactionManager(dbFactory: MongoDatabaseFactory): MongoTransactionManager {
         return MongoTransactionManager(dbFactory)
-    }
+    }*/
 
 }

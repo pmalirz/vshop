@@ -1,3 +1,4 @@
+console.log("Creating mongo users for vshop");
 db.createUser(
     {
         user: "vshop",
@@ -6,8 +7,13 @@ db.createUser(
             {
                 role: "readWrite",
                 db: "vshop"
+            },
+            {
+                role: "dbOwner",
+                db: "vshop"
             }
         ]
     }
 );
-rs.initiate();
+dbVshop = db.getSiblingDB('vshop')
+dbVshop.createCollection("products");

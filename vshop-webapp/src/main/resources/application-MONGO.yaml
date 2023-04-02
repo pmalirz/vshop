@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://vshop:vshop@localhost:27017/vshop
+      #      replica-set-name: rs0
+#      username: vshop
+#      password: vshop
+      database: vshop
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
