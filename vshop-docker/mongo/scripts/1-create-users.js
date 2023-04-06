@@ -1,4 +1,4 @@
-console.log("Creating mongo users for vshop");
+console.log("Creating users and collections");
 db.createUser(
     {
         user: "vshop",
@@ -15,5 +15,4 @@ db.createUser(
         ]
     }
 );
-dbVshop = db.getSiblingDB('vshop')
-dbVshop.createCollection("products");
+db.getSiblingDB('vshop').createCollection("products");

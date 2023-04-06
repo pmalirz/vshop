@@ -1,11 +1,12 @@
 # Uwaga! Pozor! Achtung!
 # Remember to run `gradlew dockerInit` before starting the docker-compose
 
-version: '3'
+version: '3.8'
 
 services:
-  oracle21c:
+  oracle:
     image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle
     environment:
       - ORACLE_PWD=sys
     ports:
@@ -19,6 +20,7 @@ services:
       - ./oracle/scripts:/opt/oracle/scripts
   infinispan:
     image: infinispan/server:latest
+    container_name: infinispan
     ports:
       - "11222:11222"
     environment:
@@ -28,11 +30,18 @@ services:
       - ./infinispan/server:/opt/infinispan/server
     command: -c /opt/infinispan/server/conf/datasource.xml -c /opt/infinispan/server/conf/infinispan.xml
     depends_on:
-      - oracle21c
+      - oracle
   mongo:
-    image: mongo:latest
+    build:
+        context: ./mongo
+        dockerfile: Dockerfile
+    container_name: mongo
+    hostname: mongo
+    restart: no
     ports:
       - "27017:27017"
+    networks:
+      - mongo-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
@@ -40,4 +49,20 @@ services:
     volumes:
       # MongoDB data folder
       - ./mongo/storage:/data/db
-      - ./mongo/scripts:/docker-entrypoint-initdb.d
+#    healthcheck:
+#      test: |
+#        test $$(mongosh --quiet -u root -p root --eval "try { rs.initiate().ok } catch (_) { rs.status().ok }") -eq 1
+#      interval: 1m
+#      start_period: 10s
+
+#      - ./mongo/scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+#    healthcheck:
+#      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongosh -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
+#      interval: 10s
+#      start_period: 30s
+#    command: "--replSet rs0 --bind_ip_all --keyFile /data/replica.key"
+#    command "--replSet", "rs0", "--bind_ip_all", "--keyFile", "/data/replica.key" ]
+
+networks:
+  mongo-network:
+    driver: bridge
