@@ -20,6 +20,7 @@ function tryInitiateReplicaSet() {
 
   retryCount=$((retryCount - 1))
   if [ $retryCount == 0 ]; then
+    echo "Failed to initiate replica set. Giving up."
     exit 0
   fi
 
