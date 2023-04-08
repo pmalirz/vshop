@@ -24,7 +24,8 @@ private class AddProductJpaRepository(
         internalRepository.saveAll(products.toProductJpa())
     }
 
-    // Below functions could be moved to JPA as a factory methods. However, I like to keep mappers in the managed beans.
+    // Below functions could be moved to the JPA model as a factory methods.
+    // However, I like to keep mappers in the managed beans.
     // Notice how nice the higher-order function (toProductJpa) works.
 
     private fun Collection<Product>.toProductJpa(): Collection<ProductJpa> {
