@@ -1,9 +1,5 @@
 FROM mongo:6.0.5
 
-ENV MONGO_INITDB_ROOT_USERNAME=root
-ENV MONGO_INITDB_ROOT_PASSWORD=root
-ENV MONGO_INITDB_DATABASE=vshop
-
 COPY ./data/replica.key /data/replica.key.dev
 COPY ./data/scripts /docker-entrypoint-initdb.d
 
