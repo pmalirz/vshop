@@ -8,7 +8,7 @@
                   statistics="true">
         <!-- Specifies the JDBC driver that creates connections. -->
         <connection-factory driver="oracle.jdbc.OracleDriver"
-                            url="jdbc:oracle:thin:@//oracle21c:1521/xepdb1"
+                            url="jdbc:oracle:thin:@//oracle-vshop:1521/xepdb1"
                             username="vshopcache"
                             password="vshopcache">
            <!-- Sets optional JDBC driver-specific connection properties. -->

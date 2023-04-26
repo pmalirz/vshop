@@ -6,7 +6,7 @@ PoC Online Shop Application created to test different technologies, architectura
 * [VShop](#vshop)
   * [Architecture](#architecture)
     * [Infrastructure](#infrastructure)
-    * [Functional modules (Domain)](#functional-modules--domain-)
+    * [Functional modules (Domain)](#functional-modules-domain)
   * [Prerequisites](#prerequisites)
   * [Run the app TL;DR;](#run-the-app-tldr)
   * [Initialize the infrastructure](#initialize-the-infrastructure)

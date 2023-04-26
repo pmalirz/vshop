@@ -41,4 +41,4 @@ out/
 /vshop-docker/infinispan/server/data/
 /vshop-docker/infinispan/server/log/
 /vshop-docker/infinispan/server/lib/
-/vshop-docker/mongo/storage
+/vshop-docker/mongo/data/storage

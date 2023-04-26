@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This script initiates the replicat set mode on the single-node mongo instance
+# The heart of this script is the following command:
+# mongosh --quiet -p root -u root admin --eval 'rs.initiate()'
+# Due to the continuation of the initialization process of the mongo instance,
+# we need to retry the execution of this command.
+
 retryCount=10
 readonly secondsBeforeAnotherRetry=2
 
@@ -8,7 +14,7 @@ function tryInitiateReplicaSet() {
 
   # try to initiate replica set using mongosh command
   # if mongo not yet available we will get "MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017" in the console
-  initResult=$(mongosh --quiet -p root -u root admin --eval 'rs.initiate().ok' || :)
+  initResult=$(mongosh --quiet -p $MONGO_INITDB_ROOT_USERNAME -u $MONGO_INITDB_ROOT_PASSWORD admin --eval 'rs.initiate().ok' || :)
 
   if [[ $initResult == 1 ]]; then
     echo "Successfully initiated replica set"
