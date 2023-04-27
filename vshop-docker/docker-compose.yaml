@@ -6,7 +6,8 @@ version: '3.8'
 services:
   oracle:
     image: container-registry.oracle.com/database/express:21.3.0-xe
-    container_name: oracle
+    container_name: oracle-vshop
+    hostname: oracle-vshop
     environment:
       - ORACLE_PWD=sys
     ports:
@@ -19,8 +20,9 @@ services:
       # Oracle's startup and setup scripts folder - https://github.com/oracle/docker-images/tree/main/OracleDatabase/SingleInstance#running-scripts-after-setup-and-on-startup
       - ./oracle/scripts:/opt/oracle/scripts
   infinispan:
-    image: infinispan/server:latest
-    container_name: infinispan
+    image: infinispan/server:14.0
+    container_name: infinispan-vshop
+    hostname: infinispan-vshop
     ports:
       - "11222:11222"
     environment:
@@ -35,34 +37,15 @@ services:
     build:
         context: ./mongo
         dockerfile: Dockerfile
-    container_name: mongo
-    hostname: mongo
-    restart: no
+    container_name: mongo-vshop
+    hostname: mongo-vshop
+    restart: always
     ports:
       - "27017:27017"
-    networks:
-      - mongo-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
       MONGO_INITDB_DATABASE: vshop
     volumes:
       # MongoDB data folder
-      - ./mongo/storage:/data/db
-#    healthcheck:
-#      test: |
-#        test $$(mongosh --quiet -u root -p root --eval "try { rs.initiate().ok } catch (_) { rs.status().ok }") -eq 1
-#      interval: 1m
-#      start_period: 10s
-
-#      - ./mongo/scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-#    healthcheck:
-#      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongosh -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
-#      interval: 10s
-#      start_period: 30s
-#    command: "--replSet rs0 --bind_ip_all --keyFile /data/replica.key"
-#    command "--replSet", "rs0", "--bind_ip_all", "--keyFile", "/data/replica.key" ]
-
-networks:
-  mongo-network:
-    driver: bridge
+      - ./mongo/data/storage:/data/db
