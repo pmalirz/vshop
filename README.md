@@ -125,7 +125,7 @@ gradlew bootRun --args='--spring.profiles.active=JSON,INIT'
 
 There are following initializers build in the application:
 
-- `pl.malirz.vshop.product.command.ProductsDatabaseInitializer` - generates random products. The number of `Prouct`s
+- `pl.malirz.vshop.product.initializer.ProductsDatabaseInitializer` - generates random products. The number of `Prouct`s
   generated is defined by the
   `vshop.products.generated.initial.count` property (see
   the [application.yaml](vshop-webapp/src/main/resources/application.yaml)).

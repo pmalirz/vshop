@@ -1,4 +1,4 @@
-package pl.malirz.vshop.product.command
+package pl.malirz.vshop.product.initializer
 
 import mu.KotlinLogging
 import org.apache.commons.lang3.RandomStringUtils
@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import pl.malirz.vshop.product.command.AddProductRepository
+import pl.malirz.vshop.product.command.Product
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 import java.util.stream.IntStream
 import kotlin.system.measureTimeMillis
@@ -43,7 +46,7 @@ internal class ProductsDatabaseInitializer(
                 code = it.toString(),
                 name = RandomStringUtils.random(5, true, true),
                 description = RandomStringUtils.random(10, true, true),
-                price = BigDecimal.valueOf(Math.random() * 1000).setScale(2, java.math.RoundingMode.HALF_UP),
+                price = BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.HALF_UP),
                 quantity = (Math.random() * 1000).toInt()
             )
             products.add(product)
