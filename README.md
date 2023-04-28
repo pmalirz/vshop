@@ -1,6 +1,9 @@
 # VShop
 
-PoC Online Shop Application created to test different technologies, architectural and design styles.
+Online Shop Application created for educational purpose to test different technologies, architectural and design styles.
+**V**Shop stands for **V**ertically sliced. For the sake of simplicity the application is stored in the one project 
+as a modular monolith. Business functions are layered in separate packages (modules) and can be easily extracted to 
+separate microservices.
 
 <!-- TOC -->
 * [VShop](#vshop)
