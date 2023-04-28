@@ -1,7 +1,3 @@
-springdoc:
-  show-actuator: true
-  swagger-ui:
-    path: /
 logging:
   level:
     ROOT: INFO
