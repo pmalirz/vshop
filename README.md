@@ -132,3 +132,9 @@ There are following initializers build in the application:
   generated is defined by the
   `vshop.products.generated.initial.count` property (see
   the [application.yaml](vshop-webapp/src/main/resources/application.yaml)).
+
+## Access the application
+
+At the time the only way to access application is to use the Swagger UI. The Swagger UI is available under the following 
+URL: http://localhost:8080/swagger-ui/index.html
+
