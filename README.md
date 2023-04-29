@@ -17,6 +17,8 @@ separate microservices.
     * [2. Start the infrastructure](#2-start-the-infrastructure)
     * [3. Database initialization](#3-database-initialization)
   * [Run the application](#run-the-application)
+  * [Access the application](#access-the-application)
+    * [Example HTTP requests](#example-http-requests)
 <!-- TOC -->
 
 ## Architecture
@@ -48,11 +50,20 @@ The following modules are already implemented:
 
 ## Run the app TL;DR;
 
+Running **Oracle** profiles (`JPA`, `SODA`, `JSON`):
 ```shell
 gradlew initDocker
-docker-compose up -d oracle21c
+docker-compose up -d oracle
+gradlew dbInit
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=JSON'
+```
+Running **MongoDB** profile (`MONGO`):
+```shell
+gradlew initDocker
+docker-compose up -d mongo
+gradlew build
+gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
 
 ## Initialize the infrastructure
@@ -84,7 +95,7 @@ It will start Oracle 21c XE instance and Infinispan 14 (connected to the Oracle 
 it. Thus, you can run only the following command:
 
 ```shell
-docker-compose up -d oracle21c
+docker-compose up -d oracle
 ```
 
 ### 3. Database initialization
@@ -98,9 +109,7 @@ gradlew dbInit
 
 ## Run the application
 
-The application is configured to run with the following profiles: `JPA`, `SODA`, `JSON` together with the `INIT`
-profile. The `INIT` profile is used to initialize the database with the fake / generated data. The `INIT` profile can be
-used in combination with any of the other profiles.
+The application is configured to run with the following profiles: `JPA`, `SODA`, `JSON`, `MOGNO`.
 
 - `JPA` profile is used to run the application with the JPA (Hibernate) persistence layer.
 
@@ -120,21 +129,20 @@ gradlew bootRun --args='--spring.profiles.active=SODA'
 gradlew bootRun --args='--spring.profiles.active=JSON'
 ```
 
-You can run each profile together with the `INIT` profile to initialize the database with the random data.
+- `MONGO` profile is used to run the application with the MongoDB persistence layer.
 
 ```shell
-gradlew bootRun --args='--spring.profiles.active=JSON,INIT'
+gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
-
-There are following initializers build in the application:
-
-- `pl.malirz.vshop.product.initializer.ProductsDatabaseInitializer` - generates random products. The number of `Prouct`s
-  generated is defined by the
-  `vshop.products.generated.initial.count` property (see
-  the [application.yaml](vshop-webapp/src/main/resources/application.yaml)).
 
 ## Access the application
 
 At the time the only way to access application is to use the Swagger UI. The Swagger UI is available under the following 
 URL: http://localhost:8080/swagger-ui/index.html
 
+### Example HTTP requests
+
+The following request will generate 1000 products and store them in the database:
+```http request
+POST http://localhost:8080/products/generate/1000
+```

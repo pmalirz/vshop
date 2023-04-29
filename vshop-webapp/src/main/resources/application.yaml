@@ -6,8 +6,3 @@ logging:
     org.springframework.transaction: DEBUG
     org.springframework.data.mongodb: DEBUG
     org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
-vshop:
-  products:
-    generate:
-      initial:
-        size: 10

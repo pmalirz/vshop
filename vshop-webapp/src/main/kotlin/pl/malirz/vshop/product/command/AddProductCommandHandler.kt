@@ -13,7 +13,7 @@ internal class AddProductCommandHandler(private val repository: AddProductReposi
     @Transactional
     override fun accept(command: AddProductCommand) {
         val product = Product(
-            id = UUID.randomUUID().toString(),
+            id = command.id,
             code = command.code,
             name = command.name,
             description = command.description,
@@ -27,6 +27,7 @@ internal class AddProductCommandHandler(private val repository: AddProductReposi
 }
 
 data class AddProductCommand(
+    val id: String,
     val code: String,
     val name: String,
     val description: String?,
