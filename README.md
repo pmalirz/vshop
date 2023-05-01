@@ -1,5 +1,7 @@
 # VShop
 
+<img height="350" src="./docs/images/vshop-logo.jpg" title="VShop Logo" width="350"/>
+
 Online Shop Application created for educational purpose to test different technologies, architectural and design styles.
 **V**Shop stands for **V**ertically sliced. For the sake of simplicity the application is stored in the one project 
 as a modular monolith. Business functions are layered in separate packages (modules) and can be easily extracted to 
@@ -17,7 +19,7 @@ separate microservices.
     * [2. Start the infrastructure](#2-start-the-infrastructure)
     * [3. Database initialization](#3-database-initialization)
   * [Run the application](#run-the-application)
-  * [Access the application](#access-the-application)
+  * [Accessing the application](#accessing-the-application)
     * [Example HTTP requests](#example-http-requests)
 <!-- TOC -->
 
@@ -135,7 +137,7 @@ gradlew bootRun --args='--spring.profiles.active=JSON'
 gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
 
-## Access the application
+## Accessing the application
 
 At the time the only way to access application is to use the Swagger UI. The Swagger UI is available under the following 
 URL: http://localhost:8080/swagger-ui/index.html
