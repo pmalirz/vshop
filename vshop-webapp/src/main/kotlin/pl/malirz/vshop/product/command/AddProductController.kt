@@ -4,12 +4,13 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pl.malirz.vshop.product.PRODUCTS
 import pl.malirz.vshop.shared.domain.utils.IdGenerator
 import java.math.BigDecimal
 import java.util.*
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("$PRODUCTS")
 internal class AddProductController(
     private val handler: AddProductCommandHandler,
     private val idGenerator: IdGenerator
@@ -30,7 +31,6 @@ internal data class AddProductRequest(
     val price: BigDecimal?,
     val revision: Long?
 ) {
-    fun toCommand(id: String): AddProductCommand =
-        AddProductCommand(id, code, name, description, price, quantity, revision)
+    fun toCommand(id: String) = AddProductCommand(id, code, name, description, price, quantity, revision)
 }
 

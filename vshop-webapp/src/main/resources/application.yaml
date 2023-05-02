@@ -1,8 +1,11 @@
 logging:
   level:
     ROOT: INFO
-    org.springframework.jdbc: DEBUG
-    org.springframework.orm.jpa: DEBUG
-    org.springframework.transaction: DEBUG
-    org.springframework.data.mongodb: DEBUG
-    org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
+    pl.malirz.vshop: DEBUG
+    org.springframework.jdbc: INFO
+    org.springframework.orm.jpa: INFO
+    org.springframework.transaction: INFO
+    org.springframework.data.mongodb: INFO
+    org.hibernate.engine.transaction.internal.TransactionImpl: INFO
+  charset:
+    console: UTF-8

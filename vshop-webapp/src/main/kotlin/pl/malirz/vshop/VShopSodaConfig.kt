@@ -1,5 +1,6 @@
 package pl.malirz.vshop
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -47,6 +48,7 @@ class VShopSodaConfig {
                     .enable(KotlinFeature.StrictNullChecks)
                     .build()
             )
+            disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
         }
 
 }

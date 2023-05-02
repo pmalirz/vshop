@@ -56,7 +56,7 @@ Running **Oracle** profiles (`JPA`, `SODA`, `JSON`):
 ```shell
 gradlew initDocker
 docker-compose up -d oracle
-gradlew dbInit
+gradlew initDB
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=JSON'
 ```
@@ -106,7 +106,7 @@ Before you run the application you need to initialize the database. The followin
 tables for all spring profiles (JPA, SODA, JSON).
 
 ```shell
-gradlew dbInit
+gradlew initDB
 ```
 
 ## Run the application
@@ -147,4 +147,9 @@ URL: http://localhost:8080/swagger-ui/index.html
 The following request will generate 1000 products and store them in the database:
 ```http request
 POST http://localhost:8080/products/generate/1000
+```
+
+Then you can search the products using the following request:
+```http request
+GET http://localhost:8080/products?textContains=whaleboat
 ```

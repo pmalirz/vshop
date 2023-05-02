@@ -8,6 +8,7 @@ import oracle.soda.rdbms.OracleRDBMSClient
 import org.springframework.jdbc.core.ConnectionCallback
 import org.springframework.jdbc.core.JdbcTemplate
 import kotlin.concurrent.getOrSet
+import kotlin.reflect.KClass
 
 /**
  * Utility class making work with SODA collection more convenient and performant.
@@ -45,6 +46,18 @@ class OracleSodaQuery(
         oracleCollection.insert(documents.iterator())
     }
 
+    fun <T : Any> search(tableName: String, qbe: String, clazz: KClass<T>): List<T> {
+        val (oracleCollection, oracleDatabase) = openCollection(tableName)
+        val qbeDoc = oracleDatabase.createDocumentFromString(qbe)
+        val resultCursor = oracleCollection.find().filter(qbeDoc).cursor
+        val result = mutableListOf<T>()
+        while (resultCursor.hasNext()) {
+            val item = objectMapper.readValue(resultCursor.next().contentAsByteArray, clazz.java)
+            result.add(item)
+        }
+        return result
+    }
+
     /**
      *  Uses per-thread-cached OracleDatabase and OracleCollection instance.
      *  Instead of opening the collection and creating the OracleDatabase instance every time an operation
@@ -59,6 +72,7 @@ class OracleSodaQuery(
                 oracleDatabase = oracleRDBMSClient.getDatabase(connection)
             })
             val oracleCollection = oracleDatabase?.openCollection(collectionName)
+                ?: throw IllegalStateException("The $collectionName collection does not exist.")
 
             Pair(oracleCollection!!, oracleDatabase!!)
         }
