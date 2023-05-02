@@ -1,7 +1,10 @@
 package pl.malirz.vshop.product.command
 
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Max
+import jakarta.validation.constraints.Positive
 import mu.KotlinLogging
-import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -9,6 +12,7 @@ import pl.malirz.vshop.shared.domain.utils.IdGenerator
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
+import java.util.function.Consumer
 import java.util.stream.IntStream
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
@@ -17,19 +21,15 @@ import kotlin.system.measureTimeMillis
 @RequestMapping("/products/generate")
 internal class GenerateFakeProductsController(
     private val handler: AddProductCommandHandler, private val idGenerator: IdGenerator
-) {
+) : Consumer<GenerateProductsRequest> {
 
     private val logger = KotlinLogging.logger {}
 
     @PostMapping("/{numberOfProducts}")
-    fun accept(@PathVariable numberOfProducts: Int) {
+    override fun accept(@ModelAttribute @Valid generateProductsRequest: GenerateProductsRequest) {
+        val numberOfProducts = generateProductsRequest.numberOfProducts
 
         val addProductCommands = mutableListOf<AddProductCommand>()
-
-        if (numberOfProducts <= 0) {
-            logger.error { "No products to generate. numberOfProducts is $numberOfProducts but must be greater than ZERO" }
-            return
-        }
 
         IntStream.rangeClosed(1, numberOfProducts).forEach {
             val selectedWords = RANDOM_WORDS.shuffled().stream()
@@ -56,6 +56,12 @@ internal class GenerateFakeProductsController(
         logger.info { "End initialization of products  ($numberOfProducts products): $timeInMillis ms" }
     }
 }
+
+internal data class GenerateProductsRequest(
+    @field:Positive
+    @field:Max(1_000_000)
+    val numberOfProducts: Int
+)
 
 val RANDOM_WORDS = listOf(
     "lubrication",

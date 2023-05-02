@@ -8,16 +8,17 @@ import pl.malirz.vshop.product.PRODUCTS
 import pl.malirz.vshop.shared.domain.utils.IdGenerator
 import java.math.BigDecimal
 import java.util.*
+import java.util.function.Consumer
 
 @RestController
 @RequestMapping("$PRODUCTS")
 internal class AddProductController(
     private val handler: AddProductCommandHandler,
     private val idGenerator: IdGenerator
-) {
+) : Consumer<AddProductRequest> {
 
     @PostMapping
-    fun accept(@RequestBody request: AddProductRequest) {
+    override fun accept(@RequestBody request: AddProductRequest) {
         val id = idGenerator.generate()
         handler.accept(request.toCommand(id))
     }

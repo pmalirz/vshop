@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import pl.malirz.vshop.product.PRODUCTS
 import java.util.*
+import java.util.function.Function
 
 @RestController
 @RequestMapping("$PRODUCTS")
 internal class SearchProductsController(
     private val handler: SearchProductsQueryHandler
-) {
+) : Function<SearchProductsRequest, List<SearchProductsView>> {
 
     private val logger = KotlinLogging.logger {}
 
     @GetMapping
-    fun accept(@Valid @ModelAttribute request: SearchProductsRequest): List<SearchProductsView> {
+    override fun apply(@Valid @ModelAttribute request: SearchProductsRequest): List<SearchProductsView> {
         logger.debug { "Search products by: $request" }
         val result = handler.apply(request.toQuery())
         logger.debug { "Found ${result.size} products by: $request" }
