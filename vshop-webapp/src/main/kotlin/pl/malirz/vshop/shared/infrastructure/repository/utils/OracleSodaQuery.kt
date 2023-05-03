@@ -74,7 +74,7 @@ class OracleSodaQuery(
             val oracleCollection = oracleDatabase?.openCollection(collectionName)
                 ?: throw IllegalStateException("The $collectionName collection does not exist.")
 
-            Pair(oracleCollection!!, oracleDatabase!!)
+            Pair(oracleCollection, oracleDatabase!!)
         }
 
 }
