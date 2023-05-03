@@ -1,10 +1,6 @@
 package pl.malirz.vshop
 
-import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinFeature
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.fasterxml.jackson.module.kotlin.jsonMapper
 import oracle.soda.rdbms.OracleRDBMSClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -39,16 +35,5 @@ class VShopSodaConfig {
         oracleRDBMSClient: OracleRDBMSClient,
         objectMapper: ObjectMapper
     ) = OracleSodaQuery(jdbcTemplate, oracleRDBMSClient, objectMapper)
-
-    @Bean
-    fun objectMapper(): ObjectMapper =
-        jsonMapper {
-            addModule(
-                KotlinModule.Builder()
-                    .enable(KotlinFeature.StrictNullChecks)
-                    .build()
-            )
-            disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        }
 
 }

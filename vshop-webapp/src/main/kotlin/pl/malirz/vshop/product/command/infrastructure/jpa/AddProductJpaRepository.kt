@@ -56,7 +56,7 @@ private interface ProductJpaInternalRepository : CrudRepository<ProductJpa, Stri
  * This Entity is purely for mapping your domain model to the database.
  */
 @Entity(name = "PRODUCT_JPA")
-internal class ProductJpa(
+private class ProductJpa(
     @Id
     val id: String,
     val code: String,

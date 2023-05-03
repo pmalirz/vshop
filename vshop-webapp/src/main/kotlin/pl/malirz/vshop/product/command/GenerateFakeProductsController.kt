@@ -4,8 +4,8 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Positive
 import mu.KotlinLogging
-import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import pl.malirz.vshop.shared.domain.utils.IdGenerator
@@ -19,14 +19,14 @@ import kotlin.system.measureTimeMillis
 
 @RestController
 @RequestMapping("/products/generate")
-internal class GenerateFakeProductsController(
+private class GenerateFakeProductsController(
     private val handler: AddProductCommandHandler, private val idGenerator: IdGenerator
 ) : Consumer<GenerateProductsRequest> {
 
     private val logger = KotlinLogging.logger {}
 
-    @PostMapping("/{numberOfProducts}")
-    override fun accept(@ModelAttribute @Valid generateProductsRequest: GenerateProductsRequest) {
+    @PostMapping
+    override fun accept(@RequestBody @Valid generateProductsRequest: GenerateProductsRequest) {
         val numberOfProducts = generateProductsRequest.numberOfProducts
 
         val addProductCommands = mutableListOf<AddProductCommand>()
@@ -57,7 +57,7 @@ internal class GenerateFakeProductsController(
     }
 }
 
-internal data class GenerateProductsRequest(
+private data class GenerateProductsRequest(
     @field:Positive
     @field:Max(1_000_000)
     val numberOfProducts: Int

@@ -1,9 +1,6 @@
 package pl.malirz.vshop
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinFeature
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.fasterxml.jackson.module.kotlin.jsonMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -32,16 +29,5 @@ class VShopJsonConfig {
         jdbcTemplate: JdbcTemplate,
         objectMapper: ObjectMapper
     ) = OracleJsonQuery(jdbcTemplate, objectMapper)
-
-    @Bean
-    fun objectMapper(): ObjectMapper =
-        jsonMapper {
-            addModule(
-                KotlinModule.Builder()
-                    .enable(KotlinFeature.StrictNullChecks)
-                    .build()
-            )
-        }
-
 
 }
