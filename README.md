@@ -156,7 +156,13 @@ URL: http://localhost:8080/swagger-ui/index.html
 The following request will generate 1000 products and store them in the database:
 
 ```http request
-POST http://localhost:8080/products/generate/1000
+POST http://localhost:8080/products/generate
+Accept: application/json
+Content-Type: application/json
+
+{
+  "numberOfProducts": 1000
+}
 ```
 
 Then you can search the products using the following request:
