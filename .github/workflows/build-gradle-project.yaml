@@ -19,4 +19,4 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Run Build (not tests - we don't have a database for testing yet)
-        run: ./gradlew build -x test
+        run: ./gradlew build test
