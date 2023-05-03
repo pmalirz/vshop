@@ -22,10 +22,7 @@ private class SearchProductsSodaRepository(
 
     override fun apply(searchProductsQuery: SearchProductsQuery): List<SearchProductsView> {
         val textFragment = searchProductsQuery.textContains.lowercase()
-        val textQBE = "{ \"\$or\": [ " +
-                "{ \"description\" : { \"\$lower\": { \"\$instr\": \"$textFragment\"}}}," +
-                "{ \"name\" : { \"\$lower\": { \"\$instr\": \"$textFragment\"}}} " +
-                "] }"
+        val textQBE = "{ \"description\" : { \"\$lower\": { \"\$instr\": \"$textFragment\"}}}"
         return oracleSodaQuery.search(TABLE, textQBE, SearchProductsView::class)
     }
 

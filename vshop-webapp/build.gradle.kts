@@ -55,7 +55,8 @@ dependencies {
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation(kotlin("test")) // The Kotlin test library
+    testImplementation(kotlin("test"))
+    testImplementation("org.testcontainers:oracle-xe:1.18.0")
 }
 
 tasks.withType<KotlinCompile> {

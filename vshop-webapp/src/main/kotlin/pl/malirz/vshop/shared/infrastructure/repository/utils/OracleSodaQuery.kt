@@ -48,7 +48,7 @@ class OracleSodaQuery(
 
     fun <T : Any> search(tableName: String, qbe: String, clazz: KClass<T>): List<T> {
         val (oracleCollection, oracleDatabase) = openCollection(tableName)
-        val qbeDoc = oracleDatabase.createDocumentFromString(qbe)
+        val qbeDoc = oracleDatabase.createDocumentFromString(qbe) // Query By Example
         val resultCursor = oracleCollection.find().filter(qbeDoc).cursor
         val result = mutableListOf<T>()
         while (resultCursor.hasNext()) {

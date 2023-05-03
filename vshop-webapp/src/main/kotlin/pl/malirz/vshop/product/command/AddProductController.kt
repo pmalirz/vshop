@@ -1,5 +1,8 @@
 package pl.malirz.vshop.product.command
 
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,18 +21,23 @@ internal class AddProductController(
 ) : Consumer<AddProductRequest> {
 
     @PostMapping
-    override fun accept(@RequestBody request: AddProductRequest) {
+    override fun accept(@Valid @RequestBody request: AddProductRequest) {
         val id = idGenerator.generate()
         handler.accept(request.toCommand(id))
     }
 }
 
 internal data class AddProductRequest(
+    @field:NotBlank
     val code: String,
+    @field:NotBlank
     val name: String,
     val description: String?,
+    @field:Min(1)
     val quantity: Int?,
+    @field:Min(0)
     val price: BigDecimal?,
+    @field:Min(0)
     val revision: Long?
 ) {
     fun toCommand(id: String) = AddProductCommand(id, code, name, description, price, quantity, revision)
