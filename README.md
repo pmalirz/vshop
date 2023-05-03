@@ -3,24 +3,26 @@
 <img height="350" src="./docs/images/vshop-logo.jpg" title="VShop Logo" width="350"/>
 
 Online Shop Application created for educational purpose to test different technologies, architectural and design styles.
-**V**Shop stands for **V**ertically sliced. For the sake of simplicity the application is stored in the one project 
-as a modular monolith. Business functions are layered in separate packages (modules) and can be easily extracted to 
-separate microservices.
+**V**Shop stands for **V**ertically sliced. For the sake of simplicity the application is stored in the one project as a
+modular monolith. Business functions are layered in separate packages (modules) and can be easily extracted to separate
+microservices.
 
 <!-- TOC -->
+
 * [VShop](#vshop)
-  * [Architecture](#architecture)
-    * [Infrastructure](#infrastructure)
-    * [Functional modules (Domain)](#functional-modules-domain)
-  * [Prerequisites](#prerequisites)
-  * [Run the app TL;DR;](#run-the-app-tldr)
-  * [Initialize the infrastructure](#initialize-the-infrastructure)
-    * [1. Docker configuration](#1-docker-configuration)
-    * [2. Start the infrastructure](#2-start-the-infrastructure)
-    * [3. Database initialization](#3-database-initialization)
-  * [Run the application](#run-the-application)
-  * [Accessing the application](#accessing-the-application)
-    * [Example HTTP requests](#example-http-requests)
+    * [Architecture](#architecture)
+        * [Infrastructure](#infrastructure)
+        * [Functional modules (Domain)](#functional-modules-domain)
+    * [Prerequisites](#prerequisites)
+    * [Run the app TL;DR;](#run-the-app-tldr)
+    * [Initialize the infrastructure](#initialize-the-infrastructure)
+        * [1. Docker configuration](#1-docker-configuration)
+        * [2. Start the infrastructure](#2-start-the-infrastructure)
+        * [3. Database initialization](#3-database-initialization)
+    * [Run the application](#run-the-application)
+    * [Accessing the application](#accessing-the-application)
+        * [Example HTTP requests](#example-http-requests)
+
 <!-- TOC -->
 
 ## Architecture
@@ -41,8 +43,9 @@ the application is vertically sliced into the separate functional modules (domai
 
 ![vshop-packages-listing.jpg](docs/images/vshop-packages-listing.jpg)
 
-As the project is under development and for the learning purposes the modules will be added gradually.
-The following modules are already implemented:
+As the project is under development and for the learning purposes the modules will be added gradually. The following
+modules are already implemented:
+
 - **products**
 
 ## Prerequisites
@@ -53,6 +56,7 @@ The following modules are already implemented:
 ## Run the app TL;DR;
 
 Running **Oracle** profiles (`JPA`, `SODA`, `JSON`):
+
 ```shell
 gradlew initDocker
 docker-compose up -d oracle
@@ -60,13 +64,18 @@ gradlew initDB
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=JSON'
 ```
+
 Running **MongoDB** profile (`MONGO`):
+
 ```shell
 gradlew initDocker
 docker-compose up -d mongo
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
+
+⚠️ The first build may take a little longer as the project uses the Testcontainers. Hence, the first build will download
+the Docker images for the Oracle.
 
 ## Initialize the infrastructure
 
@@ -139,17 +148,19 @@ gradlew bootRun --args='--spring.profiles.active=MONGO'
 
 ## Accessing the application
 
-At the time the only way to access application is to use the Swagger UI. The Swagger UI is available under the following 
+At the time the only way to access application is to use the Swagger UI. The Swagger UI is available under the following
 URL: http://localhost:8080/swagger-ui/index.html
 
 ### Example HTTP requests
 
 The following request will generate 1000 products and store them in the database:
+
 ```http request
 POST http://localhost:8080/products/generate/1000
 ```
 
 Then you can search the products using the following request:
+
 ```http request
 GET http://localhost:8080/products?textContains=whaleboat
 ```
