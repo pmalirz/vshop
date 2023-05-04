@@ -21,7 +21,8 @@ class OracleSodaQuery(
 
     /**
      *  OracleCollection and OracleDatabase instances are cached per thread.
-     *  This is done to avoid opening the collection and creating the OracleDatabase instance for each query.
+     *  This is done to avoid opening the collection and creating the OracleDatabase instance for each query inside
+     *  the same thread.
      */
     private val oracleInThread = ThreadLocal<MutableMap<String, Pair<OracleCollection, OracleDatabase>>>()
 

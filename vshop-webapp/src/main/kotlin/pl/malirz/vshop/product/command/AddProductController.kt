@@ -15,7 +15,7 @@ import java.util.function.Consumer
 
 @RestController
 @RequestMapping("$PRODUCTS")
-internal class AddProductController(
+private class AddProductController(
     private val handler: AddProductCommandHandler,
     private val idGenerator: IdGenerator
 ) : Consumer<AddProductRequest> {
@@ -27,7 +27,7 @@ internal class AddProductController(
     }
 }
 
-internal data class AddProductRequest(
+data class AddProductRequest(
     @field:NotBlank
     val code: String,
     @field:NotBlank

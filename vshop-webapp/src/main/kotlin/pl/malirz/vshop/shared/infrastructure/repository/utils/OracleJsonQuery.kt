@@ -10,6 +10,9 @@ import kotlin.reflect.KClass
 private const val DEFAULT_JSON_COLUMN_NAME = "DOC"
 private const val DEFAULT_BATCH_SIZE = 1000
 
+/**
+ * Utility class for querying JSON documents stored in Oracle database.
+ */
 class OracleJsonQuery(
     private val jdbcTemplate: JdbcTemplate,
     private val objectMapper: ObjectMapper,
