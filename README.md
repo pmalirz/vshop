@@ -108,19 +108,22 @@ Go to the `vshop-docker` and run the following command
 docker-compose up -d
 ```
 
-It will start Oracle 21c XE instance and Infinispan 14 (connected to the Oracle DB).
+It will start 3 containers:
+- Oracle 21c XE 
+- Infinispan 14 (connected to the Oracle DB) ***Infinispan is not used in the current version of the project***
+- MongoDB 6
 
-**Note!** that the in the current version of the project the Infinispan is not used thus it is not necessary to start
-it. Thus, you can run only the following command:
+If you want to start only the Oracle DB or MongoDB you can run the following command:
 
 ```shell
 docker-compose up -d oracle
+docker-compose up -d mongo
 ```
 
 ### 4. Database initialization
 
 Before you run the application you need to initialize the database. The following task will create all the necessary
-tables for all spring profiles (JPA, SODA, JSON).
+tables for all Oracle spring profiles (JPA, SODA, JSON).
 
 ```shell
 gradlew initDB
