@@ -62,8 +62,8 @@ private class ProductJpa(
     val code: String,
     val name: String,
     val description: String?,
-    val price: BigDecimal?,
-    val quantity: Int?,
+    val price: BigDecimal,
+    val quantity: Int,
     @Version
     val revision: Long? = 1L
 )

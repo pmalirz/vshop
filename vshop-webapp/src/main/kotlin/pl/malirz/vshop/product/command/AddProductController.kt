@@ -34,9 +34,9 @@ data class AddProductRequest(
     val name: String,
     val description: String?,
     @field:Min(1)
-    val quantity: Int?,
+    val quantity: Int,
     @field:Min(0)
-    val price: BigDecimal?,
+    val price: BigDecimal,
     @field:Min(0)
     val revision: Long?
 ) {

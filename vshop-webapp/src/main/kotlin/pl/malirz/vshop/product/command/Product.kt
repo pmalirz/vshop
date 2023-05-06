@@ -16,9 +16,9 @@ class Product(
     val name: String,
     val description: String?,
     /** Current price. */
-    val price: BigDecimal?,
+    val price: BigDecimal,
     /** The number of available products in the shop, that client can buy. */
-    val quantity: Int?,
+    val quantity: Int,
     val revision: Long? = 1L
 )
 

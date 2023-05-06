@@ -31,7 +31,7 @@ data class AddProductCommand(
     val code: String,
     val name: String,
     val description: String?,
-    val price: BigDecimal?,
-    val quantity: Int?,
+    val price: BigDecimal,
+    val quantity: Int,
     val revision: Long?
 )

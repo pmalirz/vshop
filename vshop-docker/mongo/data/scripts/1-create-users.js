@@ -5,7 +5,7 @@ let userName = process.env.MONGO_INITDB_DATABASE;
 let password = process.env.MONGO_INITDB_DATABASE;
 let database = process.env.MONGO_INITDB_DATABASE;
 
-console.log("Creating users and collections");
+console.log("Creating users and collections for database: " + database);
 db.createUser(
     {
         user: userName,
@@ -22,4 +22,6 @@ db.createUser(
         ]
     }
 );
-db.getSiblingDB(database).createCollection("products");
+db.getSiblingDB(database).createCollection("products")
+db.products.createIndex( { "$**": "text" } )
+

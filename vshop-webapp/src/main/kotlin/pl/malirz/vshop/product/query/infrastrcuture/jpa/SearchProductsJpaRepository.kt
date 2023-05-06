@@ -35,7 +35,6 @@ private class SearchProductsSodaRepository(
                 quantity = it.quantity
             )
         }.toList()
-
 }
 
 @Repository

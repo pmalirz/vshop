@@ -16,3 +16,8 @@ class VShopApplicationJSONSmokeTests : AbstractSmokeIntegrationOracleTest() {
 class VShopApplicationJPASmokeTests : AbstractSmokeIntegrationOracleTest() {
 
 }
+
+@ActiveProfiles("MONGO")
+class VShopApplicationMongoSmokeTests : AbstractSmokeIntegrationMongoTest() {
+
+}

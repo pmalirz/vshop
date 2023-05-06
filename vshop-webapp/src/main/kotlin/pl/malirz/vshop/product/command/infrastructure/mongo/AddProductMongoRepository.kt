@@ -53,14 +53,14 @@ private interface ProductMongoInternalRepository : MongoRepository<ProductMongo,
  * Mongo similarly to JPA has its own model. Although it is similar to the JSON and SODA use cases.
  */
 @Document("products")
-internal class ProductMongo(
+private class ProductMongo(
     @Id
     val id: String,
     val code: String,
     val name: String,
     val description: String?,
-    val price: BigDecimal?,
-    val quantity: Int?,
+    val price: BigDecimal,
+    val quantity: Int,
     @Version
     val revision: Long? = 1L
 )

@@ -57,6 +57,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test"))
     testImplementation("org.testcontainers:oracle-xe:1.18.0")
+    testImplementation("org.testcontainers:mongodb:1.18.0")
 }
 
 tasks.withType<KotlinCompile> {
