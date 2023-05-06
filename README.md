@@ -8,21 +8,19 @@ modular monolith. Business functions are layered in separate packages (modules) 
 microservices.
 
 <!-- TOC -->
-
 * [VShop](#vshop)
-    * [Architecture](#architecture)
-        * [Infrastructure](#infrastructure)
-        * [Functional modules (Domain)](#functional-modules-domain)
-    * [Prerequisites](#prerequisites)
-    * [Run the app TL;DR;](#run-the-app-tldr)
-    * [Initialize the infrastructure](#initialize-the-infrastructure)
-        * [1. Docker configuration](#1-docker-configuration)
-        * [2. Start the infrastructure](#2-start-the-infrastructure)
-        * [3. Database initialization](#3-database-initialization)
-    * [Run the application](#run-the-application)
-    * [Accessing the application](#accessing-the-application)
-        * [Example HTTP requests](#example-http-requests)
-
+  * [Architecture](#architecture)
+    * [Infrastructure](#infrastructure)
+    * [Functional modules (Domain)](#functional-modules-domain)
+  * [Prerequisites](#prerequisites)
+  * [Run the app TL;DR;](#run-the-app-tldr)
+  * [Initialize the infrastructure](#initialize-the-infrastructure)
+    * [1. Docker configuration](#1-docker-configuration)
+    * [2. Start the infrastructure](#2-start-the-infrastructure)
+    * [3. Database initialization](#3-database-initialization)
+  * [Run the application](#run-the-application)
+  * [Accessing the application](#accessing-the-application)
+    * [Example HTTP requests](#example-http-requests)
 <!-- TOC -->
 
 ## Architecture
