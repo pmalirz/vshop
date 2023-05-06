@@ -18,5 +18,5 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: Run Build (not tests - we don't have a database for testing yet)
-        run: ./gradlew build test
+      - name: Run Build with Smoke Tests against all profiles (Oracle and Mongo)
+        run: ./gradlew build
