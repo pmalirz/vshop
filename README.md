@@ -16,8 +16,9 @@ microservices.
   * [Run the app TL;DR;](#run-the-app-tldr)
   * [Initialize the infrastructure](#initialize-the-infrastructure)
     * [1. Docker configuration](#1-docker-configuration)
-    * [2. Start the infrastructure](#2-start-the-infrastructure)
-    * [3. Database initialization](#3-database-initialization)
+    * [2. Build the project](#2-build-the-project)
+    * [3. Start the infrastructure](#3-start-the-infrastructure)
+    * [4. Database initialization](#4-database-initialization)
   * [Run the application](#run-the-application)
   * [Accessing the application](#accessing-the-application)
     * [Example HTTP requests](#example-http-requests)
@@ -71,9 +72,8 @@ docker-compose up -d mongo
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
-
 ⚠️ The first build may take a little longer as the project uses the Testcontainers. Hence, the first build will download
-the Docker images for the Oracle.
+the Docker images for Oracle and Mongo.
 
 ## Initialize the infrastructure
 
@@ -90,7 +90,17 @@ the `vshop-docker/infinispan/server/lib`. This folder is dedicated to the Infini
 about the Infinispan `server`
 folder https://infinispan.org/docs/stable/titles/server/server.html#server_root_directory
 
-### 2. Start the infrastructure
+### 2. Build the project
+
+To build the project just run the following command:
+
+```shell
+gradlew build
+```
+⚠️ The first build may take a little longer as the project uses the Testcontainers. Hence, the first build will download
+the Docker images for Oracle and Mongo.
+
+### 3. Start the infrastructure
 
 Go to the `vshop-docker` and run the following command
 
@@ -107,7 +117,7 @@ it. Thus, you can run only the following command:
 docker-compose up -d oracle
 ```
 
-### 3. Database initialization
+### 4. Database initialization
 
 Before you run the application you need to initialize the database. The following task will create all the necessary
 tables for all spring profiles (JPA, SODA, JSON).
