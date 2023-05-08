@@ -28,12 +28,13 @@ per domain) and can be extracted to separate microservices when needed later on.
 
 ### Infrastructure
 
-- Infinispan 14 (connected to Oracle XE)
+- Infinispan 14 (connected to Oracle XE) ***Infinispan is not used in the current version of the project***
 - Oracle 21c XE
     - Two users are created on first setup (vshop and vshopcache) -
       see [SQL init scripts](./vshop-docker/oracle/scripts/setup)
         - **vshopcache** user is dedicated to the Infinispan JDBC persistent storage
         - **vshop** user is the application user
+- MongoDB 6 (with vshop user) 
 
 ### Functional modules (Domain)
 
@@ -45,7 +46,8 @@ the application is vertically sliced into the separate functional modules (domai
 As the project is under development and for the learning purposes the modules will be added gradually. The following
 modules are already implemented:
 
-- **products**
+- **products** - the module works with 4 spring profiles: `JPA`, `SODA`, `JSON`, `MONGO`. Each profile uses different
+  persistence layer.
 
 ## Prerequisites
 
@@ -131,7 +133,7 @@ gradlew initDB
 
 ## Run the application
 
-The application is configured to run with the following profiles: `JPA`, `SODA`, `JSON`, `MOGNO`.
+The application is configured to run with the following profiles: `JPA`, `SODA`, `JSON`, `MONGO`.
 
 - `JPA` profile is used to run the application with the JPA (Hibernate) persistence layer.
 
