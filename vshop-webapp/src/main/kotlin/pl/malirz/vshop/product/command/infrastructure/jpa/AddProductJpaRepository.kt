@@ -16,12 +16,8 @@ private class AddProductJpaRepository(
     private val internalRepository: ProductJpaInternalRepository
 ) : AddProductRepository {
 
-    override fun add(product: Product) {
+    override fun accept(product: Product) {
         internalRepository.save(product.toProductJpa())
-    }
-
-    override fun add(products: Collection<Product>) {
-        internalRepository.saveAll(products.toProductJpa())
     }
 
     // Below functions could be moved to the JPA model as a factory methods.

@@ -9,28 +9,29 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pl.malirz.cqrs.QueryHandler
 import pl.malirz.vshop.product.PRODUCTS
 import java.util.*
 import java.util.function.Function
 
 @RestController
 @RequestMapping("$PRODUCTS")
-internal class SearchProductsController(
-    private val handler: SearchProductsQueryHandler
-) : Function<SearchProductsRequest, List<SearchProductsView>> {
+private class SearchProductsController(
+    private val queryHandler: QueryHandler<SearchProductsQuery, SearchProductsListView>
+) : Function<SearchProductsRequest, SearchProductsListView> {
 
     private val logger = KotlinLogging.logger {}
 
     @GetMapping
-    override fun apply(@Valid @ModelAttribute request: SearchProductsRequest): List<SearchProductsView> {
+    override fun apply(@Valid @ModelAttribute request: SearchProductsRequest): SearchProductsListView {
         logger.debug { "Search products by: $request" }
-        val result = handler.apply(request.toQuery())
-        logger.debug { "Found ${result.size} products by: $request" }
+        val result = queryHandler.apply(request.toQuery())
+        logger.debug { "Found ${result.items.size} products by: $request" }
         return result
     }
 }
 
-internal data class SearchProductsRequest(
+private data class SearchProductsRequest(
     @field:NotBlank
     @field:Length(min = 3, max = 255)
     @field:Pattern(regexp = "[a-zA-Z0-9ÀÁÂÄĄÇĆČĎÈÉÊËĘĚÍÎÏŁŃŇÑÓÔÖŘßŚŠŤÙÚÛÜŮÝŸŹŻŽa-zàáâäąçćčďèéêëęěíîïłńňñóôöřßśšťùúûüůýÿźżž ]*")

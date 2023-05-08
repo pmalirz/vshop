@@ -2,9 +2,7 @@ package pl.malirz.vshop.product.query.infrastrcuture.soda
 
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
-import pl.malirz.vshop.product.query.SearchProductsQuery
-import pl.malirz.vshop.product.query.SearchProductsRepository
-import pl.malirz.vshop.product.query.SearchProductsView
+import pl.malirz.vshop.product.query.*
 import pl.malirz.vshop.shared.infrastructure.repository.utils.OracleSodaQuery
 
 private const val TABLE = "PRODUCT_SODA"
@@ -20,10 +18,10 @@ private class SearchProductsSodaRepository(
     private val oracleSodaQuery: OracleSodaQuery
 ) : SearchProductsRepository {
 
-    override fun apply(searchProductsQuery: SearchProductsQuery): List<SearchProductsView> {
+    override fun apply(searchProductsQuery: SearchProductsQuery): SearchProductsListView {
         val textFragment = searchProductsQuery.textContains.lowercase()
         val textQBE = "{ \"description\" : { \"\$lower\": { \"\$instr\": \"$textFragment\"}}}"
-        return oracleSodaQuery.search(TABLE, textQBE, SearchProductsView::class)
+        return oracleSodaQuery.search(TABLE, textQBE, SearchProductsView::class).asView()
     }
 
 

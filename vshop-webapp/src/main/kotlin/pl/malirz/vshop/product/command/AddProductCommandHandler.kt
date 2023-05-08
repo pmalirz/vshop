@@ -2,13 +2,12 @@ package pl.malirz.vshop.product.command
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import pl.malirz.cqrs.CommandHandler
 import java.math.BigDecimal
-import java.util.*
-import java.util.function.Consumer
 
 @Service
-internal class AddProductCommandHandler(private val repository: AddProductRepository) :
-    Consumer<AddProductCommand> {
+private class AddProductCommandHandler(private val repository: AddProductRepository) :
+    CommandHandler<AddProductCommand> {
 
     @Transactional
     override fun accept(command: AddProductCommand) {
@@ -22,7 +21,7 @@ internal class AddProductCommandHandler(private val repository: AddProductReposi
             revision = command.revision
         )
 
-        repository.add(product)
+        repository.accept(product)
     }
 }
 
@@ -33,5 +32,5 @@ data class AddProductCommand(
     val description: String?,
     val price: BigDecimal,
     val quantity: Int,
-    val revision: Long?
+    val revision: Long?,
 )

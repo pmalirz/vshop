@@ -47,7 +47,7 @@ class OracleJsonQuery(
         // Also $.*? (particularly .*) means we are going to search in all fields of the JSON document.
 
         val query =
-            "SELECT * FROM $tableName WHERE json_exists($jsonColumnName, " +
+            "SELECT $jsonColumnName FROM $tableName WHERE json_exists($jsonColumnName, " +
                     "'$.*?(@.lower() has substring \$p1)' PASSING :1 AS \"p1\"" +
                     ")"
 

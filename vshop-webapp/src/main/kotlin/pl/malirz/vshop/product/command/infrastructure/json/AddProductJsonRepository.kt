@@ -13,12 +13,8 @@ private const val TABLE = "PRODUCT_JSON"
 private class AddProductJsonRepository(
     private val oracleJsonQuery: OracleJsonQuery
 ) : AddProductRepository {
-    override fun add(product: Product) {
+    override fun accept(product: Product) {
         oracleJsonQuery.insert(TABLE, product)
-    }
-
-    override fun add(products: Collection<Product>) {
-        oracleJsonQuery.insertBatch(TABLE, products)
     }
 
 }

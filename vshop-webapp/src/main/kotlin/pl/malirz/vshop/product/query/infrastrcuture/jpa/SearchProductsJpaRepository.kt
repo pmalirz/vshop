@@ -9,9 +9,7 @@ import org.springframework.data.annotation.Immutable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
-import pl.malirz.vshop.product.query.SearchProductsQuery
-import pl.malirz.vshop.product.query.SearchProductsRepository
-import pl.malirz.vshop.product.query.SearchProductsView
+import pl.malirz.vshop.product.query.*
 import java.math.BigDecimal
 import java.util.stream.Stream
 
@@ -24,7 +22,7 @@ private class SearchProductsSodaRepository(
     private val internalRepository: ProductProjectionJpaInternalRepository
 ) : SearchProductsRepository {
 
-    override fun apply(searchProductsQuery: SearchProductsQuery): List<SearchProductsView> =
+    override fun apply(searchProductsQuery: SearchProductsQuery) =
         internalRepository.findAllTextContains("%${searchProductsQuery.textContains}%").map {
             SearchProductsView(
                 id = it.id,
@@ -34,7 +32,8 @@ private class SearchProductsSodaRepository(
                 price = it.price,
                 quantity = it.quantity
             )
-        }.toList()
+        }.asView()
+
 }
 
 @Repository

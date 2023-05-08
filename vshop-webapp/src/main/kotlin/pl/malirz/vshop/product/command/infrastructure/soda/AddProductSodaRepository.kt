@@ -13,12 +13,8 @@ private const val TABLE = "PRODUCT_SODA"
 private class AddProductSodaRepository(
     private val oracleSodaQuery: OracleSodaQuery
 ) : AddProductRepository {
-    override fun add(product: Product) {
+    override fun accept(product: Product) {
         oracleSodaQuery.insert(TABLE, product)
-    }
-
-    override fun add(products: Collection<Product>) {
-        oracleSodaQuery.insertBatch(TABLE, products)
     }
 
 }

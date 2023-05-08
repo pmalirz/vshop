@@ -16,12 +16,8 @@ private class AddProductMongoRepository(
     private val internalRepository: ProductMongoInternalRepository
 ) : AddProductRepository {
 
-    override fun add(product: Product) {
+    override fun accept(product: Product) {
         internalRepository.save(product.toProductMongo())
-    }
-
-    override fun add(products: Collection<Product>) {
-        internalRepository.saveAll(products.toProductMongo())
     }
 
     // Below functions could be moved to the Mongo model as a factory methods.

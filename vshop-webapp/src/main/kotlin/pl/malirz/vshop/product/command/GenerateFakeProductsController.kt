@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pl.malirz.cqrs.CommandHandler
 import pl.malirz.vshop.shared.domain.utils.IdGenerator
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -20,7 +21,8 @@ import kotlin.system.measureTimeMillis
 @RestController
 @RequestMapping("/products/generate")
 private class GenerateFakeProductsController(
-    private val handler: AddProductCommandHandler, private val idGenerator: IdGenerator
+    private val handler: CommandHandler<AddProductCommand>,
+    private val idGenerator: IdGenerator
 ) : Consumer<GenerateProductsRequest> {
 
     private val logger = KotlinLogging.logger {}

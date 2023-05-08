@@ -8,9 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository
 import pl.malirz.vshop.product.command.Product
-import pl.malirz.vshop.product.query.SearchProductsQuery
-import pl.malirz.vshop.product.query.SearchProductsRepository
-import pl.malirz.vshop.product.query.SearchProductsView
+import pl.malirz.vshop.product.query.*
 import java.math.BigDecimal
 import java.util.stream.Stream
 
@@ -20,8 +18,8 @@ private class SearchProductsMongoRepository(
     private val internalRepository: ProductProjectionMongoInternalRepository
 ) : SearchProductsRepository {
 
-    override fun apply(searchProductsQuery: SearchProductsQuery): List<SearchProductsView> {
-        return internalRepository.findAllTextContains( searchProductsQuery.textContains ).map {
+    override fun apply(searchProductsQuery: SearchProductsQuery) =
+        internalRepository.findAllTextContains(searchProductsQuery.textContains).map {
             SearchProductsView(
                 id = it.id,
                 code = it.code,
@@ -30,8 +28,7 @@ private class SearchProductsMongoRepository(
                 price = it.price,
                 quantity = it.quantity
             )
-        }.toList()
-    }
+        }.asView()
 
     // Below functions could be moved to the Mongo model as a factory methods.
     // However, I like to keep mappers in the managed beans.
