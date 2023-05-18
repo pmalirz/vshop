@@ -52,7 +52,7 @@ modules are already implemented:
 ## Prerequisites
 
 - Docker
-- JDK 17
+- JDK 17 (ensure that `JAVA_HOME` points to JDK 17 dir - required by the Gradle Wrapper)
 
 ## Run the app TL;DR;
 
@@ -60,7 +60,7 @@ Running **Oracle** profiles (`JPA`, `SODA`, `JSON`):
 
 ```shell
 gradlew initDocker
-docker-compose up -d oracle
+docker-compose -f vshop-docker\docker-compose.yaml up -d oracle
 gradlew initDB
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=JSON'
@@ -70,7 +70,7 @@ Running **MongoDB** profile (`MONGO`):
 
 ```shell
 gradlew initDocker
-docker-compose up -d mongo
+docker-compose -f vshop-docker\docker-compose.yaml up -d mongo
 gradlew build
 gradlew bootRun --args='--spring.profiles.active=MONGO'
 ```
