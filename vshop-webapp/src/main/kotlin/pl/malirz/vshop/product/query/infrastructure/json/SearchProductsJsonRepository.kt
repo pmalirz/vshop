@@ -1,4 +1,4 @@
-package pl.malirz.vshop.product.query.infrastrcuture.json
+package pl.malirz.vshop.product.query.infrastructure.json
 
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
