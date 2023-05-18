@@ -1,4 +1,4 @@
-package pl.malirz.vshop.product.query.infrastrcuture.jpa
+package pl.malirz.vshop.product.query.infrastructure.jpa
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

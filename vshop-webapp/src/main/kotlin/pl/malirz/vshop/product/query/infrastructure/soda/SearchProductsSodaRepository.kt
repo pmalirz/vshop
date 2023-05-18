@@ -1,4 +1,4 @@
-package pl.malirz.vshop.product.query.infrastrcuture.soda
+package pl.malirz.vshop.product.query.infrastructure.soda
 
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository

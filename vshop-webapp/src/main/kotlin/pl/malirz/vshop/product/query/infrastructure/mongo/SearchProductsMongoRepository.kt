@@ -1,4 +1,4 @@
-package pl.malirz.vshop.product.query.infrastrcuture.mongo
+package pl.malirz.vshop.product.query.infrastructure.mongo
 
 import jakarta.persistence.Id
 import jakarta.persistence.Version
