@@ -5,10 +5,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import mu.KotlinLogging
 import org.hibernate.validator.constraints.Length
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import pl.malirz.cqrs.QueryHandler
 import pl.malirz.vshop.product.PRODUCTS
 import java.util.*
@@ -16,6 +13,7 @@ import java.util.function.Function
 
 @RestController
 @RequestMapping("$PRODUCTS")
+@CrossOrigin
 private class SearchProductsController(
     private val queryHandler: QueryHandler<SearchProductsQuery, SearchProductsListView>
 ) : Function<SearchProductsRequest, SearchProductsListView> {

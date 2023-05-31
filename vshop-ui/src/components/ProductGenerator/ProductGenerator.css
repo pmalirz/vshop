@@ -1,0 +1,12 @@
+.generating-message {
+    margin-left: 10px;
+    color: #006d98;
+    font-weight: bold;
+}
+
+.generating-error {
+    margin-left: 10px;
+    margin-top: 10px;
+    color:#CE2121FF;
+    font-weight: bold;
+}
