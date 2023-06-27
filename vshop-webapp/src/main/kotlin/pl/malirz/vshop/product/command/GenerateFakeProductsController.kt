@@ -5,6 +5,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Positive
 import mu.KotlinLogging
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,6 +21,7 @@ import kotlin.system.measureTimeMillis
 
 @RestController
 @RequestMapping("/products/generate")
+@CrossOrigin
 private class GenerateFakeProductsController(
     private val handler: CommandHandler<AddProductCommand>,
     private val idGenerator: IdGenerator
